@@ -13,6 +13,14 @@ public sealed class DataGridColumn : BindableObject, IDefinition
 {
     #region Bindable Properties
 
+    public static readonly BindableProperty ShouldSumProperty =
+    BindableProperty.Create(nameof(ShouldSum), typeof(bool), typeof(DataGridColumn), false);
+    public bool ShouldSum
+    {
+        get => (bool)GetValue(ShouldSumProperty);
+        set => SetValue(ShouldSumProperty, value);
+    }
+
     /// <summary>
     /// Gets or sets the width of the column.
     /// </summary>
@@ -35,6 +43,7 @@ public sealed class DataGridColumn : BindableObject, IDefinition
                     self.OnSizeChanged();
                 }
             });
+
 
     /// <summary>
     /// Gets or sets the title of the column.

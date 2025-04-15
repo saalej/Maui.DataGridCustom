@@ -2,192 +2,283 @@
 <!-- https://learn.microsoft.com/dotnet/fundamentals/package-validation/diagnostic-ids -->
 <Suppressions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Suppression>
-    <DiagnosticId>CP0001</DiagnosticId>
-    <Target>T:Maui.DataGrid.Converters.BorderThicknessToCellPaddingConverter</Target>
-    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
-    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0001</DiagnosticId>
-    <Target>T:Maui.DataGrid.Converters.SortDataTypeConverter</Target>
-    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
-    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0001</DiagnosticId>
-    <Target>T:Maui.DataGrid.SortDataTypeConverter</Target>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGrid.FastIncrementProperty</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGrid.FilteringEnabledProperty</Target>
+    <Target>F:Maui.DataGrid.DataGrid.PageOptionsProperty</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGrid.FooterTextColorProperty</Target>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryRowBackgroundProperty</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGrid.HeaderFilterStyleProperty</Target>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryRowProperty</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGrid.PageTextProperty</Target>
+    <Target>F:Maui.DataGrid.DataGridColumn.ShouldSumProperty</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGrid.PerPageTextProperty</Target>
+    <Target>M:Maui.DataGrid.DataGrid.get_FastIncrement</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGridColumn.FilteringEnabledProperty</Target>
+    <Target>M:Maui.DataGrid.DataGrid.get_FastNextPageCommand</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGridColumn.FilterTextProperty</Target>
+    <Target>M:Maui.DataGrid.DataGrid.get_FastPreviousPageCommand</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGridColumn.HeaderFilterStyleProperty</Target>
+    <Target>M:Maui.DataGrid.DataGrid.get_GoToPageCommand</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.get_FilteringEnabled</Target>
+    <Target>M:Maui.DataGrid.DataGrid.get_NextPageCommand</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.get_FooterTextColor</Target>
+    <Target>M:Maui.DataGrid.DataGrid.get_PageOptions</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.get_HeaderFilterStyle</Target>
+    <Target>M:Maui.DataGrid.DataGrid.get_PreviousPageCommand</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.get_PageText</Target>
+    <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowBackground</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.get_PerPageText</Target>
+    <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowHeight</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.set_FilteringEnabled(System.Boolean)</Target>
+    <Target>M:Maui.DataGrid.DataGrid.set_FastIncrement(System.Int32)</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.set_FooterTextColor(Microsoft.Maui.Graphics.Color)</Target>
+    <Target>M:Maui.DataGrid.DataGrid.set_PageOptions(System.Collections.ObjectModel.ObservableCollection{System.Int32})</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.set_HeaderFilterStyle(Microsoft.Maui.Controls.Style)</Target>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowBackground(Microsoft.Maui.Graphics.Color)</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.set_PageText(System.String)</Target>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowHeight(System.Int32)</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.set_PerPageText(System.String)</Target>
+    <Target>M:Maui.DataGrid.DataGridColumn.get_ShouldSum</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGridColumn.get_FilteringEnabled</Target>
+    <Target>M:Maui.DataGrid.DataGridColumn.set_ShouldSum(System.Boolean)</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGridColumn.get_FilterText</Target>
-    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
-    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <Target>F:Maui.DataGrid.DataGrid.FastIncrementProperty</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGridColumn.get_HeaderFilterStyle</Target>
-    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
-    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <Target>F:Maui.DataGrid.DataGrid.PageOptionsProperty</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGridColumn.set_FilteringEnabled(System.Boolean)</Target>
-    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
-    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryRowBackgroundProperty</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGridColumn.set_FilterText(System.String)</Target>
-    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
-    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryRowProperty</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGridColumn.set_HeaderFilterStyle(Microsoft.Maui.Controls.Style)</Target>
-    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
-    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <Target>F:Maui.DataGrid.DataGridColumn.ShouldSumProperty</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_FastIncrement</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_FastNextPageCommand</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_FastPreviousPageCommand</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_GoToPageCommand</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_NextPageCommand</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_PageOptions</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_PreviousPageCommand</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowBackground</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowHeight</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.set_FastIncrement(System.Int32)</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.set_PageOptions(System.Collections.ObjectModel.ObservableCollection{System.Int32})</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowBackground(Microsoft.Maui.Graphics.Color)</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowHeight(System.Int32)</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.get_ShouldSum</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.set_ShouldSum(System.Boolean)</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
 </Suppressions>

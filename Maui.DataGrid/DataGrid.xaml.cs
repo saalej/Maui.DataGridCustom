@@ -23,8 +23,64 @@ using Font = Microsoft.Maui.Font;
 /// DataGrid component for .NET MAUI.
 /// </summary>
 [XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class DataGrid
+public partial class DataGrid: INotifyPropertyChanged
 {
+    // Caracteristicas Saalej
+    public static readonly BindableProperty FastIncrementProperty =
+    BindableProperty.Create(
+        nameof(FastIncrement),
+        typeof(int),
+        typeof(DataGrid),
+        defaultValue: 5);
+
+    public int FastIncrement
+    {
+        get => (int)GetValue(FastIncrementProperty);
+        set => SetValue(FastIncrementProperty, value);
+    }
+
+    public static readonly BindableProperty PageOptionsProperty =
+    BindableProperty.Create(
+        nameof(PageOptions),
+        typeof(ObservableCollection<int>),
+        typeof(DataGrid),
+        new ObservableCollection<int>());
+
+    public ObservableCollection<int> PageOptions
+    {
+        get => (ObservableCollection<int>)GetValue(PageOptionsProperty);
+        set => SetValue(PageOptionsProperty, value);
+    }
+
+    
+
+    // Comandos para navegación
+    public ICommand PreviousPageCommand { get; }
+    public ICommand NextPageCommand { get; }
+    public ICommand FastPreviousPageCommand { get; }
+    public ICommand FastNextPageCommand { get; }
+    public ICommand GoToPageCommand { get; }
+
+    // Sumatoria row
+    
+    public static readonly BindableProperty SummaryRowBackgroundProperty =
+        BindablePropertyExtensions.Create<DataGrid, Color>(Colors.White);
+    public Color SummaryRowBackground
+    {
+        get => (Color)GetValue(SummaryRowBackgroundProperty);
+        set => SetValue(SummaryRowBackgroundProperty, value);
+    }
+
+    public static readonly BindableProperty SummaryRowProperty =
+        BindablePropertyExtensions.Create<DataGrid, int>(DeviceInfo.Platform == DevicePlatform.Android ? 50 : 40);
+    public int SummaryRowHeight
+    {
+        get => (int)GetValue(SummaryRowProperty);
+        set => SetValue(SummaryRowProperty, value);
+    }
+    
+    // Implementacion original
+
     /// <summary>
     /// Gets or sets the color of the active row.
     /// </summary>
@@ -196,6 +252,9 @@ public partial class DataGrid
                 {
                     self.SelectedItem = null;
                 }
+
+                // Actualizar la cantidad de paginas disponibles
+                self.UpdatePageOptions();
             });
 
     /// <summary>
@@ -226,6 +285,7 @@ public partial class DataGrid
                 }
             });
 
+
     /// <summary>
     /// Gets or sets the localized text for the per page label.
     /// </summary>
@@ -240,6 +300,8 @@ public partial class DataGrid
                 }
             });
 
+
+
     /// <summary>
     /// Gets or sets the page count for the DataGrid.
     /// </summary>
@@ -253,7 +315,7 @@ public partial class DataGrid
         BindablePropertyExtensions.Create<DataGrid, int>(
             defaultValue: 100,
             BindingMode.TwoWay,
-            validateValue: (_, v) => v > 0,
+            validateValue: (_, v) => v is int size && size > 0,
             propertyChanged: (b, _, _) =>
             {
                 if (b is DataGrid self)
@@ -261,6 +323,7 @@ public partial class DataGrid
                     self.PageNumber = 1;
                     self.SortFilterAndPaginate();
                     self.UpdatePageSizeList();
+                    self.UpdatePageOptions();
                 }
             });
 
@@ -679,7 +742,7 @@ public partial class DataGrid
                 }
             });
 
-    private static readonly SortedSet<int> DefaultPageSizeSet = [5, 10, 50, 100, 200, 1000];
+    private static readonly SortedSet<int> DefaultPageSizeSet = [5, 10, 25, 50, 100, 200, 1000];
 
     private readonly WeakEventManager _itemSelectedEventManager = new();
     private readonly WeakEventManager _refreshingEventManager = new();
@@ -716,6 +779,17 @@ public partial class DataGrid
         {
             _collectionView.ItemsSource = InternalItems;
         }
+
+
+        PreviousPageCommand = new Command(() => PageNumber = Math.Max(1, PageNumber - 1));
+        NextPageCommand = new Command(() => PageNumber = Math.Min(PageCount, PageNumber + 1));
+        FastPreviousPageCommand = new Command(() => PageNumber = Math.Max(1, PageNumber - FastIncrement));
+        FastNextPageCommand = new Command(() => PageNumber = Math.Min(PageCount, PageNumber + FastIncrement));
+
+        FastPreviousPage.Command = FastPreviousPageCommand;
+        PreviousPage.Command = PreviousPageCommand;
+        NextPage.Command = NextPageCommand;
+        FastNextPage.Command = FastNextPageCommand;
     }
 
     /// <summary>
@@ -1175,12 +1249,12 @@ public partial class DataGrid
             if (value > 0)
             {
                 _pageCount = value;
-                _paginationStepper.IsEnabled = value > 1;
+                //_paginationStepper.IsEnabled = value > 1;
 
-                if (value > 1)
-                {
-                    _paginationStepper.Maximum = value;
-                }
+                //if (value > 1)
+                //{
+                //    _paginationStepper.Maximum = value;
+                //}
 
                 if (PageNumber > value)
                 {
@@ -1192,7 +1266,7 @@ public partial class DataGrid
                 // Handle case where there is no data (value == 0) and assume 1 blank page
                 // If (value < 0) something is wrong and try to fail gracefully by assuming 1 blank page
                 _pageCount = 1;
-                _paginationStepper.IsEnabled = false;
+                //_paginationStepper.IsEnabled = false;
                 PageNumber = 1;
             }
         }
@@ -1578,5 +1652,78 @@ public partial class DataGrid
             OnPropertyChanged(nameof(PageSizeList));
             OnPropertyChanged(nameof(PageSize));
         }
+    }
+
+    private void UpdatePageOptions()
+    {
+        PageOptions.Clear();
+
+        if (ItemsSource == null || PageSize <= 0)
+        {
+            return;
+        }
+
+        var totalItems = ItemsSource.Cast<object>().Count();
+        var totalPages = (int)Math.Ceiling((double)totalItems / PageSize);
+
+        // Llenar PageOptions con los números de página
+        for (int i = 1; i <= totalPages; i++)
+        {
+            PageOptions.Add(i);
+        }
+    }
+    private void CreateSummaryRow()
+    {
+        if (SummaryGrid == null) return;
+
+        SummaryGrid.Children.Clear();
+        SummaryGrid.ColumnDefinitions.Clear();
+
+        var columns = Columns.Where(c => c.IsVisible).ToList();
+
+        for (int i = 0; i < columns.Count; i++)
+        {
+            SummaryGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = columns[i].Width });
+
+            var label = new Label
+            {
+                HorizontalOptions = LayoutOptions.Fill,
+                VerticalOptions = LayoutOptions.Fill,
+                VerticalTextAlignment = TextAlignment.Center,
+                HorizontalTextAlignment = TextAlignment.Center,
+            };
+
+            if (columns[i].ShouldSum)
+            {
+                label.Text = CalculateSumForColumn(columns[i]).ToString();
+            }
+            else if (i == 0) // Primera columna podría mostrar el conteo
+            {
+                label.Text = $"Total: {ItemsSource?.Cast<object>().Count() ?? 0}";
+            }
+
+            Grid.SetColumn(label, i);
+            SummaryGrid.Children.Add(label);
+        }
+    }
+
+    private decimal CalculateSumForColumn(DataGridColumn column)
+    {
+        if (ItemsSource == null)
+            return 0;
+
+        decimal sum = 0;
+        var propertyName = column.PropertyName;
+
+        foreach (var item in ItemsSource)
+        {
+            var value = item.GetType().GetProperty(propertyName)?.GetValue(item);
+            if (value != null && decimal.TryParse(value.ToString(), out decimal numericValue))
+            {
+                sum += numericValue;
+            }
+        }
+
+        return sum;
     }
 }

@@ -37,17 +37,46 @@
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="BackgroundColor" Value="{OnPlatform WinUI=Black}" />
             </Style>
+
+            <!--Default Pagination Button Style-->
+            <Style x:Key="PaginationButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="#0078D7" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Padding" Value="10,5" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="BorderColor" Value="#0078D7" />
+                <Setter Property="BorderWidth" Value="1" />
+            </Style>
+
+            <!--Default Pagination Picker Style-->
+            <Style x:Key="PaginationPickerStyle" TargetType="Picker">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="FontSize" Value="14" />
+            </Style>
         </ResourceDictionary>
     </ContentView.Resources>
+    
     <Grid CompressedLayout.IsHeadless="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" x:Name="SummaryRowDefinition"/>
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <local:DataGridHeaderRow Grid.Row="0" x:Name="_headerRow" DataGrid="{Reference self}" HeightRequest="{Binding HeaderHeight, Source={Reference self}}" />
-        <RefreshView Grid.Row="1" x:Name="_refreshView" Command="{Binding PullToRefreshCommand, Source={Reference self}}" CommandParameter="{Binding PullToRefreshCommandParameter, Source={Reference self}}"
-                     RefreshColor="{Binding RefreshColor, Source={Reference self}}" IsRefreshing="{Binding IsRefreshing, Source={Reference self}, Mode=TwoWay}" IsEnabled="{Binding RefreshingEnabled, Source={Reference self}}">
+        
+        <local:DataGridHeaderRow Grid.Row="0"
+                                 x:Name="_headerRow"
+                                 DataGrid="{Reference self}"
+                                 HeightRequest="{Binding HeaderHeight, Source={Reference self}}" />
+
+        <RefreshView Grid.Row="1"
+                     x:Name="_refreshView"
+                     Command="{Binding PullToRefreshCommand, Source={Reference self}}"
+                     CommandParameter="{Binding PullToRefreshCommandParameter, Source={Reference self}}"
+                     RefreshColor="{Binding RefreshColor, Source={Reference self}}"
+                     IsRefreshing="{Binding IsRefreshing, Source={Reference self}, Mode=TwoWay}"
+                     IsEnabled="{Binding RefreshingEnabled, Source={Reference self}}">
             <CollectionView
                     x:Name="_collectionView"
                     BackgroundColor="{Binding BackgroundColor, Source={Reference self}}"
@@ -62,7 +91,18 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
-        <Grid Grid.Row="2" x:Name="_footerView" IsVisible="{Binding PaginationEnabled, Source={Reference self}}" HeightRequest="{Binding FooterHeight, Source={Reference self}}" BackgroundColor="{Binding FooterBackground, Source={Reference self}}">
+
+        <Grid Grid.Row="2"
+              x:Name="SummaryGrid"
+              IsVisible="{Binding ShouldSum, Source={Reference self}}"
+              HeightRequest="{Binding SummaryRowHeight, Source={Reference self}}"
+              BackgroundColor="{Binding SummaryRowBackground, Source={Reference self}}"/>
+
+        <Grid Grid.Row="3"
+              x:Name="_footerView"
+              IsVisible="{Binding PaginationEnabled, Source={Reference self}}"
+              HeightRequest="{Binding FooterHeight, Source={Reference self}}"
+              BackgroundColor="{Binding FooterBackground, Source={Reference self}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -72,11 +112,49 @@
                 <Label Text="{Binding PerPageText, Source={Reference self}}" Margin="5,0,0,0" VerticalTextAlignment="Center" TextColor="{Binding FooterTextColor, Source={Reference self}}" />
                 <Picker ItemsSource="{Binding PageSizeList, Source={Reference self}, Mode=TwoWay}" SelectedItem="{Binding PageSize, Source={Reference self}}" TextColor="{Binding FooterTextColor, Source={Reference self}}"  MinimumWidthRequest="50" ios:Picker.UpdateMode="WhenFinished"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center">
-                <Label Text="{Binding PageText, Source={Reference self}}" Margin="0,0,5,0" VerticalTextAlignment="Center" TextColor="{Binding FooterTextColor, Source={Reference self}}" />
-                <Label Text="{Binding PageNumber, Source={Reference self}}" VerticalTextAlignment="Center" TextColor="{Binding FooterTextColor, Source={Reference self}}" />
-                <Stepper x:Name="_paginationStepper" Value="{Binding PageNumber, Source={Reference self}}" Style="{Binding PaginationStepperStyle, Source={Reference self}}" Minimum="1" />
+            <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Fill" Spacing="5">
+                <Label Text="{Binding PageText, Source={Reference self}}"
+                       VerticalTextAlignment="Center"
+                       TextColor="{Binding FooterTextColor, Source={Reference self}}" />
+                
+                <Label Text="{Binding PageNumber, Source={Reference self}}"
+                       VerticalTextAlignment="Center" TextColor="{Binding FooterTextColor, Source={Reference self}}" />
+                
+                <!-- Botones de navegación rápida (<<) -->
+                <Button Text="&lt;&lt;"
+                        x:Name="FastPreviousPage"
+                        Style="{StaticResource PaginationButtonStyle}" />
+
+                <!-- Botón de página anterior (<) -->
+                <Button Text="&lt;"
+                        x:Name="PreviousPage"
+                        Style="{StaticResource PaginationButtonStyle}" />
+
+                <Picker Style="{StaticResource PaginationPickerStyle}"
+                        VerticalTextAlignment="Center"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="Center"
+                        BackgroundColor="White"
+                        ItemsSource="{Binding PageOptions, Source={Reference self}, Mode=TwoWay}"
+                        SelectedItem="{Binding PageNumber, Source={Reference self}, Mode=TwoWay}"
+                        TextColor="{Binding FooterTextColor, Source={Reference self}}"></Picker>
+                
+                <!-- Botón de página siguiente (>) -->
+                <Button Text=">" 
+                        x:Name="NextPage" 
+                        Style="{StaticResource PaginationButtonStyle}" />
+
+                <!-- Botones de navegación rápida (>>) -->
+                <Button Text=">>"
+                        x:Name="FastNextPage" 
+                        Style="{StaticResource PaginationButtonStyle}" />
             </HorizontalStackLayout>
         </Grid>
     </Grid>
 </ContentView>
+
+<!--<Stepper x:Name="_paginationStepper"
+             Value="{Binding PageNumber, Source={Reference self}}"
+             Style="{Binding PaginationStepperStyle, Source={Reference self}}"
+             Minimum="1"
+             Increment="{Binding IncrementPagination, Source={Reference self}}"/>-->
