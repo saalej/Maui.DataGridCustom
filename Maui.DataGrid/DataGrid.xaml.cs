@@ -31,7 +31,7 @@ public partial class DataGrid: INotifyPropertyChanged
         nameof(FastIncrement),
         typeof(int),
         typeof(DataGrid),
-        defaultValue: 5);
+        defaultValue: 2);
 
     public int FastIncrement
     {
@@ -59,26 +59,60 @@ public partial class DataGrid: INotifyPropertyChanged
     public ICommand NextPageCommand { get; }
     public ICommand FastPreviousPageCommand { get; }
     public ICommand FastNextPageCommand { get; }
-    public ICommand GoToPageCommand { get; }
 
     // Sumatoria row
-    
+
+    public static readonly BindableProperty SummaryRowVisibleProperty =
+    BindableProperty.Create(nameof(SummaryRowVisible), typeof(bool), typeof(DataGrid), false);
+
+    public static readonly BindableProperty SummaryRowHeightProperty =
+    BindableProperty.Create(nameof(SummaryRowHeight), typeof(double), typeof(DataGrid), 40.0);
+
     public static readonly BindableProperty SummaryRowBackgroundProperty =
-        BindablePropertyExtensions.Create<DataGrid, Color>(Colors.White);
+        BindablePropertyExtensions.Create<DataGrid, Color>(
+            defaultValue: Colors.White,
+           propertyChanged: (b, _, n) =>
+           {
+               if (b is DataGrid self && self._summaryRow != null && !self.HeaderBordersVisible)
+               {
+                   foreach (var child in self._summaryRow.Children)
+                   {
+                       if (child is DataGridCell cell)
+                       {
+                           cell.UpdateCellBackgroundColor(n);
+                       }
+                   }
+               }
+           });
+
+
+    public static readonly BindableProperty SummaryRowTextColorProperty =
+        BindablePropertyExtensions.Create<DataGrid, Color>(Colors.Black);
+
     public Color SummaryRowBackground
     {
         get => (Color)GetValue(SummaryRowBackgroundProperty);
         set => SetValue(SummaryRowBackgroundProperty, value);
     }
 
-    public static readonly BindableProperty SummaryRowProperty =
-        BindablePropertyExtensions.Create<DataGrid, int>(DeviceInfo.Platform == DevicePlatform.Android ? 50 : 40);
-    public int SummaryRowHeight
+    public bool SummaryRowVisible
     {
-        get => (int)GetValue(SummaryRowProperty);
-        set => SetValue(SummaryRowProperty, value);
+        get => (bool)GetValue(SummaryRowVisibleProperty);
+        set => SetValue(SummaryRowVisibleProperty, value);
     }
-    
+    public double SummaryRowHeight
+    {
+        get => (double)GetValue(SummaryRowHeightProperty);
+        set => SetValue(SummaryRowHeightProperty, value);
+    }
+
+    public Color SummaryRowTextColor
+    {
+        get => (Color)GetValue(SummaryRowTextColorProperty);
+        set => SetValue(SummaryRowTextColorProperty, value);
+    }
+
+
     // Implementacion original
 
     /// <summary>
@@ -138,6 +172,11 @@ public partial class DataGrid: INotifyPropertyChanged
                 if (self._headerRow != null && self.HeaderBordersVisible)
                 {
                     self._headerRow.InitializeHeaderRow();
+                }
+
+                if (self._summaryRow != null && self.HeaderBordersVisible)
+                {
+                    self._summaryRow.InitializeSummaryRow();
                 }
             });
 
@@ -245,6 +284,7 @@ public partial class DataGrid: INotifyPropertyChanged
                 }
 
                 self._headerRow.InitializeHeaderRow(true);
+                self._summaryRow.InitializeSummaryRow(true);
                 self.SortFilterAndPaginate();
 
                 // Reset SelectedItem if it's not in the new collection
@@ -255,6 +295,7 @@ public partial class DataGrid: INotifyPropertyChanged
 
                 // Actualizar la cantidad de paginas disponibles
                 self.UpdatePageOptions();
+                self.CalculateColumnSums();
             });
 
     /// <summary>
@@ -324,6 +365,7 @@ public partial class DataGrid: INotifyPropertyChanged
                     self.SortFilterAndPaginate();
                     self.UpdatePageSizeList();
                     self.UpdatePageOptions();
+                    self.CalculateColumnSums();
                 }
             });
 
@@ -363,7 +405,7 @@ public partial class DataGrid: INotifyPropertyChanged
     /// Gets or sets the height of the footer in the DataGrid.
     /// </summary>
     public static readonly BindableProperty FooterHeightProperty =
-        BindablePropertyExtensions.Create<DataGrid, int>(DeviceInfo.Platform == DevicePlatform.Android ? 50 : 40);
+        BindablePropertyExtensions.Create<DataGrid, int>(DeviceInfo.Platform == DevicePlatform.Android ? 50 : 60);
 
     /// <summary>
     /// Gets or sets the height of the header in the DataGrid.
@@ -396,6 +438,7 @@ public partial class DataGrid: INotifyPropertyChanged
                 if (b is DataGrid self)
                 {
                     self._headerRow.InitializeHeaderRow(true);
+                    self._summaryRow.InitializeSummaryRow(true);
                 }
             });
 
@@ -626,6 +669,7 @@ public partial class DataGrid: INotifyPropertyChanged
                 if (b is DataGrid self)
                 {
                     self._headerRow.InitializeHeaderRow();
+                    self._summaryRow.InitializeSummaryRow();
                 }
             });
 
@@ -692,6 +736,12 @@ public partial class DataGrid: INotifyPropertyChanged
     /// Gets or sets the style for the header labels in the DataGrid.
     /// </summary>
     public static readonly BindableProperty HeaderLabelStyleProperty =
+        BindablePropertyExtensions.Create<DataGrid, Style>();
+
+    /// <summary>
+    /// Gets or sets the style for the header labels in the DataGrid.
+    /// </summary>
+    public static readonly BindableProperty SummaryLabelStyleProperty =
         BindablePropertyExtensions.Create<DataGrid, Style>();
 
     /// <summary>
@@ -772,6 +822,7 @@ public partial class DataGrid: INotifyPropertyChanged
         InitializeComponent();
 
         DefaultHeaderLabelStyle = (Style)Resources["DefaultHeaderLabelStyle"];
+        DefaultSummaryLabelStyle = (Style)Resources["DefaultSummaryLabelStyle"];
         DefaultHeaderFilterStyle = (Style)Resources["DefaultHeaderFilterStyle"];
         DefaultSortIconStyle = (Style)Resources["DefaultSortIconStyle"];
 
@@ -1201,6 +1252,16 @@ public partial class DataGrid: INotifyPropertyChanged
     }
 
     /// <summary>
+    /// Gets or sets style of the summary label.
+    /// Style's <see cref="Style.TargetType"/> must be Label.
+    /// </summary>
+    public Style SummaryLabelStyle
+    {
+        get => (Style)GetValue(HeaderLabelStyleProperty);
+        set => SetValue(HeaderLabelStyleProperty, value);
+    }
+
+    /// <summary>
     /// Gets or sets style of the header label.
     /// Style's <see cref="Style.TargetType"/> must be Label.
     /// </summary>
@@ -1291,8 +1352,8 @@ public partial class DataGrid: INotifyPropertyChanged
     }
 
     internal Style DefaultHeaderLabelStyle { get; }
-
     internal Style DefaultHeaderFilterStyle { get; }
+    internal Style DefaultSummaryLabelStyle { get; }
 
     internal Style DefaultSortIconStyle { get; }
 
@@ -1318,6 +1379,7 @@ public partial class DataGrid: INotifyPropertyChanged
             UpdatePageSizeList();
 
             _headerRow.InitializeHeaderRow();
+            _summaryRow.InitializeSummaryRow();
         }
     }
 
@@ -1350,6 +1412,21 @@ public partial class DataGrid: INotifyPropertyChanged
             PageCount = (int)Math.Ceiling(filteredItems.Count / (double)PageSize);
 
             InternalItems.ReplaceRange(paginatedItems);
+
+            CalculateColumnSums();
+        }
+    }
+
+    private void CalculateColumnSums()
+    {
+        if (!SummaryRowVisible) return;
+
+        foreach (var column in Columns)
+        {
+            if (column.ShowSum)
+            {
+                column.CalculateSum();
+            }
         }
     }
 
@@ -1438,6 +1515,11 @@ public partial class DataGrid: INotifyPropertyChanged
 
     private void OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
+        if(e.CurrentSelection.Count > 0 && sender is DataGridCell cell)
+        {
+            Console.WriteLine(cell);
+        }
+
         _itemSelectedEventManager.HandleEvent(this, e, nameof(ItemSelected));
         RowTappedCommand?.Execute(e);
     }
@@ -1671,59 +1753,15 @@ public partial class DataGrid: INotifyPropertyChanged
         {
             PageOptions.Add(i);
         }
-    }
-    private void CreateSummaryRow()
-    {
-        if (SummaryGrid == null) return;
 
-        SummaryGrid.Children.Clear();
-        SummaryGrid.ColumnDefinitions.Clear();
-
-        var columns = Columns.Where(c => c.IsVisible).ToList();
-
-        for (int i = 0; i < columns.Count; i++)
+        Device.BeginInvokeOnMainThread(() =>
         {
-            SummaryGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = columns[i].Width });
-
-            var label = new Label
+            if (PageOptions.Any())
             {
-                HorizontalOptions = LayoutOptions.Fill,
-                VerticalOptions = LayoutOptions.Fill,
-                VerticalTextAlignment = TextAlignment.Center,
-                HorizontalTextAlignment = TextAlignment.Center,
-            };
-
-            if (columns[i].ShouldSum)
-            {
-                label.Text = CalculateSumForColumn(columns[i]).ToString();
+                PageNumber = 1;
+                OnPropertyChanged(nameof(PageNumber));
             }
-            else if (i == 0) // Primera columna podría mostrar el conteo
-            {
-                label.Text = $"Total: {ItemsSource?.Cast<object>().Count() ?? 0}";
-            }
-
-            Grid.SetColumn(label, i);
-            SummaryGrid.Children.Add(label);
-        }
+        });
     }
 
-    private decimal CalculateSumForColumn(DataGridColumn column)
-    {
-        if (ItemsSource == null)
-            return 0;
-
-        decimal sum = 0;
-        var propertyName = column.PropertyName;
-
-        foreach (var item in ItemsSource)
-        {
-            var value = item.GetType().GetProperty(propertyName)?.GetValue(item);
-            if (value != null && decimal.TryParse(value.ToString(), out decimal numericValue))
-            {
-                sum += numericValue;
-            }
-        }
-
-        return sum;
-    }
 }

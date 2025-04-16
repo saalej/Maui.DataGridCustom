@@ -271,7 +271,23 @@ internal sealed class DataGridRow : Grid
             cellContent = CreateViewCell(col);
         }
 
-        return new DataGridCell(cellContent, CellBackgroundColor, col, isEditing);
+        var celda = new DataGridCell(cellContent, CellBackgroundColor, col, isEditing);
+
+        if(!isEditing && col.CellTappedCommand != null)
+        {
+            var tapGestureRecognizer = new TapGestureRecognizer();
+            tapGestureRecognizer.Tapped += (sender, e) =>
+            {
+                if (col.CellTappedCommand.CanExecute(BindingContext))
+                {
+                    col.CellTappedCommand.Execute(BindingContext);
+                }
+            };
+            celda.GestureRecognizers.Add(tapGestureRecognizer);
+
+        }
+
+        return celda;
     }
 
     private View CreateViewCell(DataGridColumn col)

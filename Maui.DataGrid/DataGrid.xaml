@@ -3,6 +3,7 @@
       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
       xmlns:local="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+      xmlns:saalej="clr-namespace:Maui.DataGrid"
       xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
       x:Class="Maui.DataGrid.DataGrid"
       x:DataType="local:DataGrid"
@@ -15,6 +16,13 @@
                 <Setter Property="HorizontalOptions" Value="Center" />
                 <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="TextColor" Value="Black" />
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
+            </Style>
+
+            <Style x:Key="DefaultSummaryLabelStyle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
                 <Setter Property="LineBreakMode" Value="TailTruncation" />
             </Style>
 
@@ -40,8 +48,6 @@
 
             <!--Default Pagination Button Style-->
             <Style x:Key="PaginationButtonStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="TextColor" Value="#0078D7" />
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="Padding" Value="10,5" />
                 <Setter Property="CornerRadius" Value="4" />
@@ -52,8 +58,9 @@
             <!--Default Pagination Picker Style-->
             <Style x:Key="PaginationPickerStyle" TargetType="Picker">
                 <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontSize" Value="16" />
             </Style>
+            
         </ResourceDictionary>
     </ContentView.Resources>
     
@@ -61,7 +68,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" x:Name="SummaryRowDefinition"/>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
@@ -78,12 +85,12 @@
                      IsRefreshing="{Binding IsRefreshing, Source={Reference self}, Mode=TwoWay}"
                      IsEnabled="{Binding RefreshingEnabled, Source={Reference self}}">
             <CollectionView
-                    x:Name="_collectionView"
-                    BackgroundColor="{Binding BackgroundColor, Source={Reference self}}"
-                    SelectedItem="{Binding SelectedItem, Source={Reference self}, Mode=TwoWay}"
-                    SelectedItems="{Binding SelectedItems, Source={Reference self}, Mode=TwoWay}"
-                    ItemSizingStrategy="{Binding ItemSizingStrategy, Source={Reference self}}"
-                    SelectionMode="{Binding SelectionMode, Source={Reference self}}">
+                        x:Name="_collectionView"
+                        BackgroundColor="{Binding BackgroundColor, Source={Reference self}}"
+                        SelectedItem="{Binding SelectedItem, Source={Reference self}, Mode=TwoWay}"
+                        SelectedItems="{Binding SelectedItems, Source={Reference self}, Mode=TwoWay}"
+                        ItemSizingStrategy="{Binding ItemSizingStrategy, Source={Reference self}}"
+                        SelectionMode="{Binding SelectionMode, Source={Reference self}}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Null}">
                         <local:DataGridRow DataGrid="{Reference self}" RowToEdit="{Binding RowToEdit, Source={Reference self}}" HeightRequest="{Binding RowHeight, Source={Reference self}, Mode=OneTime}" />
@@ -92,60 +99,71 @@
             </CollectionView>
         </RefreshView>
 
-        <Grid Grid.Row="2"
-              x:Name="SummaryGrid"
-              IsVisible="{Binding ShouldSum, Source={Reference self}}"
-              HeightRequest="{Binding SummaryRowHeight, Source={Reference self}}"
-              BackgroundColor="{Binding SummaryRowBackground, Source={Reference self}}"/>
-
+        <saalej:DataGridSummaryRow Grid.Row="2"
+                                   x:Name="_summaryRow"
+                                   DataGrid="{Reference self}"
+                                   IsVisible="{Binding SummaryRowVisible, Source={Reference self}}"
+                                   HeightRequest="{Binding SummaryRowHeight, Source={Reference self}}"
+                                   BackgroundColor="{Binding SummaryRowBackground, Source={Reference self}}"/>
+        
         <Grid Grid.Row="3"
               x:Name="_footerView"
+              Margin="0,5,0,0"
               IsVisible="{Binding PaginationEnabled, Source={Reference self}}"
-              HeightRequest="{Binding FooterHeight, Source={Reference self}}"
-              BackgroundColor="{Binding FooterBackground, Source={Reference self}}">
+              VerticalOptions="Fill"
+              BackgroundColor="{Binding FooterBackground, Source={Reference self}}"
+              Padding="0,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <HorizontalStackLayout VerticalOptions="Center" IsVisible="{Binding PageSizeVisible, Source={Reference self}}">
-                <Label Text="{Binding PerPageText, Source={Reference self}}" Margin="5,0,0,0" VerticalTextAlignment="Center" TextColor="{Binding FooterTextColor, Source={Reference self}}" />
-                <Picker ItemsSource="{Binding PageSizeList, Source={Reference self}, Mode=TwoWay}" SelectedItem="{Binding PageSize, Source={Reference self}}" TextColor="{Binding FooterTextColor, Source={Reference self}}"  MinimumWidthRequest="50" ios:Picker.UpdateMode="WhenFinished"/>
+            <HorizontalStackLayout VerticalOptions="Center" IsVisible="{Binding PageSizeVisible, Source={Reference self}}" Spacing="5" Margin="10,0">
+                <Label Text="{Binding PerPageText, Source={Reference self}}" 
+                       FontAttributes="Bold"
+                       VerticalTextAlignment="Center" TextColor="{Binding FooterTextColor, Source={Reference self}}" />
+                <Picker ItemsSource="{Binding PageSizeList, Source={Reference self}, Mode=TwoWay}" 
+                        SelectedItem="{Binding PageSize, Source={Reference self}}" 
+                        TextColor="Black"  
+                        MinimumWidthRequest="50" 
+                        ios:Picker.UpdateMode="WhenFinished"
+                        BackgroundColor="White"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Fill" Spacing="5">
+            <HorizontalStackLayout Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Fill" Spacing="5" Margin="10,0">
                 <Label Text="{Binding PageText, Source={Reference self}}"
                        VerticalTextAlignment="Center"
+                       FontAttributes="Bold"
                        TextColor="{Binding FooterTextColor, Source={Reference self}}" />
                 
                 <Label Text="{Binding PageNumber, Source={Reference self}}"
+                       FontAttributes="Bold"
                        VerticalTextAlignment="Center" TextColor="{Binding FooterTextColor, Source={Reference self}}" />
                 
-                <!-- Botones de navegación rápida (<<) -->
                 <Button Text="&lt;&lt;"
+                        FontAttributes="Bold"
                         x:Name="FastPreviousPage"
-                        Style="{StaticResource PaginationButtonStyle}" />
+                        Style="{StaticResource PaginationButtonStyle}"/>
 
-                <!-- Botón de página anterior (<) -->
                 <Button Text="&lt;"
+                        FontAttributes="Bold"
                         x:Name="PreviousPage"
                         Style="{StaticResource PaginationButtonStyle}" />
 
-                <Picker Style="{StaticResource PaginationPickerStyle}"
-                        VerticalTextAlignment="Center"
-                        HorizontalTextAlignment="Center"
-                        HorizontalOptions="Center"
+                <Picker TextColor="Black"
+                        MinimumWidthRequest="50" 
+                        ios:Picker.UpdateMode="WhenFinished"
                         BackgroundColor="White"
                         ItemsSource="{Binding PageOptions, Source={Reference self}, Mode=TwoWay}"
                         SelectedItem="{Binding PageNumber, Source={Reference self}, Mode=TwoWay}"
-                        TextColor="{Binding FooterTextColor, Source={Reference self}}"></Picker>
+                        ></Picker>
                 
-                <!-- Botón de página siguiente (>) -->
-                <Button Text=">" 
+                <Button Text=">"
+                        FontAttributes="Bold"
                         x:Name="NextPage" 
                         Style="{StaticResource PaginationButtonStyle}" />
 
-                <!-- Botones de navegación rápida (>>) -->
                 <Button Text=">>"
+                        FontAttributes="Bold"
                         x:Name="FastNextPage" 
                         Style="{StaticResource PaginationButtonStyle}" />
             </HorizontalStackLayout>
@@ -153,8 +171,3 @@
     </Grid>
 </ContentView>
 
-<!--<Stepper x:Name="_paginationStepper"
-             Value="{Binding PageNumber, Source={Reference self}}"
-             Style="{Binding PaginationStepperStyle, Source={Reference self}}"
-             Minimum="1"
-             Increment="{Binding IncrementPagination, Source={Reference self}}"/>-->

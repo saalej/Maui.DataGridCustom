@@ -17,6 +17,13 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryLabelStyleProperty</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>F:Maui.DataGrid.DataGrid.SummaryRowBackgroundProperty</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
@@ -24,14 +31,42 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGrid.SummaryRowProperty</Target>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryRowHeightProperty</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGridColumn.ShouldSumProperty</Target>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryRowTextColorProperty</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryRowVisibleProperty</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGridColumn.CellTappedCommandProperty</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGridColumn.ShowSumProperty</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGridColumn.SummaryLabelStyleProperty</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -59,13 +94,6 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.get_GoToPageCommand</Target>
-    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
-    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Maui.DataGrid.DataGrid.get_NextPageCommand</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
@@ -87,6 +115,13 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_SummaryLabelStyle</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowBackground</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
@@ -95,6 +130,20 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowHeight</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowTextColor</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowVisible</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -115,6 +164,13 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryLabelStyle(Microsoft.Maui.Controls.Style)</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowBackground(Microsoft.Maui.Graphics.Color)</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
@@ -122,21 +178,77 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowHeight(System.Int32)</Target>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowHeight(System.Double)</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGridColumn.get_ShouldSum</Target>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowTextColor(Microsoft.Maui.Graphics.Color)</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGridColumn.set_ShouldSum(System.Boolean)</Target>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowVisible(System.Boolean)</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.get_CellTappedCommand</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.get_ShowSum</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.get_SummaryLabelStyle</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.get_SumValue</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.set_CellTappedCommand(System.Windows.Input.ICommand)</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.set_ShowSum(System.Boolean)</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.set_SummaryLabelStyle(Microsoft.Maui.Controls.Style)</Target>
+    <Left>lib/net8.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net8.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.set_SumValue(System.Decimal)</Target>
     <Left>lib/net8.0/Maui.DataGrid.dll</Left>
     <Right>lib/net8.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -157,6 +269,13 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryLabelStyleProperty</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>F:Maui.DataGrid.DataGrid.SummaryRowBackgroundProperty</Target>
     <Left>lib/net9.0/Maui.DataGrid.dll</Left>
     <Right>lib/net9.0/Maui.DataGrid.dll</Right>
@@ -164,14 +283,42 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGrid.SummaryRowProperty</Target>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryRowHeightProperty</Target>
     <Left>lib/net9.0/Maui.DataGrid.dll</Left>
     <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>F:Maui.DataGrid.DataGridColumn.ShouldSumProperty</Target>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryRowTextColorProperty</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGrid.SummaryRowVisibleProperty</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGridColumn.CellTappedCommandProperty</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGridColumn.ShowSumProperty</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>F:Maui.DataGrid.DataGridColumn.SummaryLabelStyleProperty</Target>
     <Left>lib/net9.0/Maui.DataGrid.dll</Left>
     <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -199,13 +346,6 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.get_GoToPageCommand</Target>
-    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
-    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Maui.DataGrid.DataGrid.get_NextPageCommand</Target>
     <Left>lib/net9.0/Maui.DataGrid.dll</Left>
     <Right>lib/net9.0/Maui.DataGrid.dll</Right>
@@ -227,6 +367,13 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_SummaryLabelStyle</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowBackground</Target>
     <Left>lib/net9.0/Maui.DataGrid.dll</Left>
     <Right>lib/net9.0/Maui.DataGrid.dll</Right>
@@ -235,6 +382,20 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowHeight</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowTextColor</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.get_SummaryRowVisible</Target>
     <Left>lib/net9.0/Maui.DataGrid.dll</Left>
     <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -255,6 +416,13 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryLabelStyle(Microsoft.Maui.Controls.Style)</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowBackground(Microsoft.Maui.Graphics.Color)</Target>
     <Left>lib/net9.0/Maui.DataGrid.dll</Left>
     <Right>lib/net9.0/Maui.DataGrid.dll</Right>
@@ -262,21 +430,77 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowHeight(System.Int32)</Target>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowHeight(System.Double)</Target>
     <Left>lib/net9.0/Maui.DataGrid.dll</Left>
     <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGridColumn.get_ShouldSum</Target>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowTextColor(Microsoft.Maui.Graphics.Color)</Target>
     <Left>lib/net9.0/Maui.DataGrid.dll</Left>
     <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Maui.DataGrid.DataGridColumn.set_ShouldSum(System.Boolean)</Target>
+    <Target>M:Maui.DataGrid.DataGrid.set_SummaryRowVisible(System.Boolean)</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.get_CellTappedCommand</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.get_ShowSum</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.get_SummaryLabelStyle</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.get_SumValue</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.set_CellTappedCommand(System.Windows.Input.ICommand)</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.set_ShowSum(System.Boolean)</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.set_SummaryLabelStyle(Microsoft.Maui.Controls.Style)</Target>
+    <Left>lib/net9.0/Maui.DataGrid.dll</Left>
+    <Right>lib/net9.0/Maui.DataGrid.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Maui.DataGrid.DataGridColumn.set_SumValue(System.Decimal)</Target>
     <Left>lib/net9.0/Maui.DataGrid.dll</Left>
     <Right>lib/net9.0/Maui.DataGrid.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>

@@ -3,6 +3,7 @@ namespace Maui.DataGrid;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Windows.Input;
 using Maui.DataGrid.Extensions;
 using Microsoft.Maui.Controls.Shapes;
 
@@ -13,12 +14,47 @@ public sealed class DataGridColumn : BindableObject, IDefinition
 {
     #region Bindable Properties
 
-    public static readonly BindableProperty ShouldSumProperty =
-    BindableProperty.Create(nameof(ShouldSum), typeof(bool), typeof(DataGridColumn), false);
-    public bool ShouldSum
+    public static readonly BindableProperty ShowSumProperty =
+    BindableProperty.Create(nameof(ShowSum), typeof(bool), typeof(DataGridColumn), false,
+        propertyChanged: (b, o, n) =>
+        {
+            if (b is DataGridColumn column && (bool)n)
+            {
+                column.CalculateSum();
+            }
+        });
+
+
+    public static readonly BindableProperty CellTappedCommandProperty =
+    BindableProperty.Create(
+        nameof(CellTappedCommand),
+        typeof(ICommand),
+        typeof(DataGridColumn),
+        default(ICommand));
+    public ICommand CellTappedCommand
     {
-        get => (bool)GetValue(ShouldSumProperty);
-        set => SetValue(ShouldSumProperty, value);
+        get => (ICommand)GetValue(CellTappedCommandProperty);
+        set => SetValue(CellTappedCommandProperty, value);
+    }
+
+    private decimal _sumValue;
+    public decimal SumValue
+    {
+        get => _sumValue;
+        set
+        {
+            if (_sumValue != value)
+            {
+                _sumValue = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public bool ShowSum
+    {
+        get => (bool)GetValue(ShowSumProperty);
+        set => SetValue(ShowSumProperty, value);
     }
 
     /// <summary>
@@ -186,6 +222,29 @@ public sealed class DataGridColumn : BindableObject, IDefinition
                     else
                     {
                         self.HeaderLabel.Style = n;
+                    }
+                }
+            });
+
+    /// <summary>
+    /// Gets or sets the style for the summary label of the column.
+    /// </summary>
+    public static readonly BindableProperty SummaryLabelStyleProperty =
+        BindablePropertyExtensions.Create<DataGridColumn, Style>(
+            propertyChanged: (b, _, n) =>
+            {
+                if (b is DataGridColumn self && self.SummaryLabel != null)
+                {
+                    if (n is null)
+                    {
+                        if (self.DataGrid is not null)
+                        {
+                            self.SummaryLabel.Style = self.DataGrid.DefaultSummaryLabelStyle;
+                        }
+                    }
+                    else
+                    {
+                        self.SummaryLabel.Style = n;
                     }
                 }
             });
@@ -425,6 +484,12 @@ public sealed class DataGridColumn : BindableObject, IDefinition
         set => SetValue(HeaderLabelStyleProperty, value);
     }
 
+    public Style SummaryLabelStyle
+    {
+        get => (Style)GetValue(HeaderLabelStyleProperty);
+        set => SetValue(HeaderLabelStyleProperty, value);
+    }
+
     /// <summary>
     /// Gets or sets label style of the header. <see cref="Style.TargetType"/> must be Label.
     /// </summary>
@@ -441,6 +506,7 @@ public sealed class DataGridColumn : BindableObject, IDefinition
     internal ContentView FilterTextboxContainer { get; } = new();
 
     internal Label HeaderLabel { get; } = new();
+    internal Label? SummaryLabel { get; } = new();
 
     internal Grid HeaderLabelContainer { get; } = new()
     {
@@ -448,6 +514,14 @@ public sealed class DataGridColumn : BindableObject, IDefinition
         [
             new() { Width = new(1, GridUnitType.Star) },
             new() { Width = new(1, GridUnitType.Auto) },
+        ],
+    };
+
+    internal Grid SummaryLabelContainer { get; } = new()
+    {
+        ColumnDefinitions =
+        [
+            new() { Width = new(1, GridUnitType.Star) },
         ],
     };
 
@@ -466,6 +540,7 @@ public sealed class DataGridColumn : BindableObject, IDefinition
     }
 
     internal DataGridCell? HeaderCell { get; set; }
+    internal DataGridCell? SummaryCell { get; set; }
 
     internal TextAlignment VerticalTextAlignment => _verticalTextAlignment ??= VerticalContentAlignment.ToTextAlignment();
 
@@ -541,6 +616,82 @@ public sealed class DataGridColumn : BindableObject, IDefinition
         {
             Debug.WriteLine($"Attempting to obtain the data type for the column '{Title}' resulted in the following error: {ex.Message}");
         }
+    }
+
+    internal void CalculateSum()
+    {
+        if (!ShowSum || DataGrid?.ItemsSource == null || DataType == null)
+        {
+            SumValue = 0;
+            return;
+        }
+
+        // Solo calculamos la suma para tipos numéricos
+        if (!IsNumericType(DataType))
+        {
+            SumValue = 0;
+            return;
+        }
+
+        decimal sum = 0;
+
+        try
+        {
+            foreach (var item in DataGrid.InternalItems)
+            {
+                if (item == null) continue;
+
+                var value = GetPropertyValue(item, PropertyName);
+                if (value != null && decimal.TryParse(value.ToString(), out decimal numericValue))
+                {
+                    sum += numericValue;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error calculating sum for column '{Title}': {ex.Message}");
+        }
+
+        SumValue = sum;
+    }
+
+    // Método auxiliar para verificar si el tipo es numérico
+    private bool IsNumericType(Type type)
+    {
+        switch (Type.GetTypeCode(type))
+        {
+            case TypeCode.Byte:
+            case TypeCode.SByte:
+            case TypeCode.UInt16:
+            case TypeCode.UInt32:
+            case TypeCode.UInt64:
+            case TypeCode.Int16:
+            case TypeCode.Int32:
+            case TypeCode.Int64:
+            case TypeCode.Decimal:
+            case TypeCode.Double:
+            case TypeCode.Single:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    // Método auxiliar para obtener el valor de la propiedad
+    private object GetPropertyValue(object obj, string propertyName)
+    {
+        foreach (var part in propertyName.Split('.'))
+        {
+            if (obj == null) return null;
+
+            var type = obj.GetType();
+            var property = type.GetProperty(part);
+            if (property == null) return null;
+
+            obj = property.GetValue(obj, null);
+        }
+        return obj;
     }
 
     private void OnSizeChanged() => _sizeChangedEventManager.HandleEvent(this, EventArgs.Empty, nameof(SizeChanged));
